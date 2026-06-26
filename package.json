@@ -1,0 +1,30 @@
+{
+  "name": "botsalon-landing",
+  "version": "1.0.0",
+  "description": "Лендинг + бэкенд для Telegram-бота записи в барбершоп",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.19.2",
+    "global-agent": "^4.1.3",
+    "googleapis": "^105.0.0",
+    "node-telegram-bot-api": "^1.1.2",
+    "socks-proxy-agent": "^10.1.0"
+  },
+  "keywords": [
+    "barbershop",
+    "telegram-bot",
+    "landing",
+    "booking"
+  ],
+  "author": "BotSalon",
+  "license": "MIT"
+}

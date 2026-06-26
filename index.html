@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BarBot — Telegram-бот для записи в барбершоп | +30% выручки</title>
+  <meta name="description" content="Telegram-бот для автоматической записи в барбершоп. Онлайн-запись 24/7, напоминания клиентам, CRM-аналитика. Подключение за 24 часа.">
+  <meta name="theme-color" content="#0A0A0B">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- АНИМИРОВАННЫЙ ФОН -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--2" aria-hidden="true"></div>
+  <canvas class="bg-particles" id="particles" aria-hidden="true"></canvas>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <span class="logo__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+        <span class="logo__text">Bar<span class="logo__accent">Bot</span></span>
+      </a>
+      <nav class="nav">
+        <a href="#calculator">Калькулятор</a>
+        <a href="#stages">Подключение</a>
+        <a href="#demo">Демо</a>
+        <a href="#features">Возможности</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+      <div class="header__actions">
+        <a href="https://t.me/barber62rznbot" target="_blank" rel="noopener" class="btn btn--accent btn--sm">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14.196.145.218.314.193.469-.025.154-.127.985-.197 1.322-.06.282-.182.487-.42.65-.16.11-.295.151-.444.151-.31 0-.514-.186-.69-.367-.213-.219-.493-.61-.81-1.014-.41-.524-.728-.72-.99-.72-.024 0-.045.003-.066.01-.155.043-.262.151-.262.286 0 .084.038.16.098.227.085.094.255.236.41.367.36.305.71.708 1.118 1.153.412.434.766.726 1.026.873.262.146.498.214.722.214.184 0 .348-.03.49-.09.43-.18.7-.583.74-1.157l.044-.396c.007-.063.011-.123.011-.18 0-.158-.014-.293-.04-.398z"/></svg>
+          <span>Открыть бота</span>
+        </a>
+        <button class="burger" id="burger" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#calculator">Калькулятор</a>
+      <a href="#stages">Подключение</a>
+      <a href="#demo">Демо</a>
+      <a href="#features">Возможности</a>
+      <a href="#contact">Контакты</a>
+      <a href="https://t.me/barber62rznbot" target="_blank" rel="noopener" class="mobile-menu__phone">Открыть демо-бот</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__container">
+      <div class="hero__content">
+        <div class="badge">
+          <span class="badge__dot"></span>
+          <span>★ Уже работает в 500+ барбершопах</span>
+        </div>
+        <h1 class="hero__title">
+          Telegram-бот для <span class="accent">записи в&nbsp;барбершоп</span>
+        </h1>
+        <p class="hero__subtitle">
+          Клиенты записываются сами в&nbsp;Telegram — без звонков, без приложений, без администратора. Вы получаете готовую запись и оплату, пока мастер стрижёт.
+        </p>
+        <div class="hero__cta">
+          <a href="https://t.me/barber62rznbot" target="_blank" rel="noopener" class="btn btn--accent btn--lg">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14.196.145.218.314.193.469-.025.154-.127.985-.197 1.322-.06.282-.182.487-.42.65-.16.11-.295.151-.444.151-.31 0-.514-.186-.69-.367-.213-.219-.493-.61-.81-1.014-.41-.524-.728-.72-.99-.72-.024 0-.045.003-.066.01-.155.043-.262.151-.262.286 0 .084.038.16.098.227.085.094.255.236.41.367.36.305.71.708 1.118 1.153.412.434.766.726 1.026.873.262.146.498.214.722.214.184 0 .348-.03.49-.09.43-.18.7-.583.74-1.157l.044-.396c.007-.063.011-.123.011-.18 0-.158-.014-.293-.04-.398z"/></svg>
+            <span>Открыть демо-бот</span>
+          </a>
+          <a href="#calculator" class="btn btn--ghost btn--lg">
+            <span>Узнать стоимость</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+        <div class="hero__stats">
+          <div class="stat">
+            <div class="stat__num" data-count="30" data-prefix="+" data-suffix="%">+30%</div>
+            <div class="stat__label">рост выручки</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num" data-count="70" data-prefix="−" data-suffix="%">−70%</div>
+            <div class="stat__label">пропусков записей</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">24/7</div>
+            <div class="stat__label">запись без админа</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">24 ч</div>
+            <div class="stat__label">на подключение</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__mockup">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="tg-screen">
+            <div class="tg-header">
+              <div class="tg-avatar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              </div>
+              <div class="tg-info">
+                <div class="tg-name">BarBot · Barber #1</div>
+                <div class="tg-status"><span class="tg-status-dot"></span>онлайн</div>
+              </div>
+              <div class="tg-dots">⋮</div>
+            </div>
+            <div class="tg-body" id="tgBody"></div>
+            <div class="tg-input">
+              <span class="tg-input-placeholder">Сообщение…</span>
+              <span class="tg-send">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="float-badge float-badge--1">
+          <span class="float-badge__icon">📅</span>
+          <span>Новая запись</span>
+        </div>
+        <div class="float-badge float-badge--2">
+          <span class="float-badge__icon">💰</span>
+          <span>+1 500 ₽</span>
+        </div>
+        <div class="float-badge float-badge--3">
+          <span class="float-badge__icon">🔔</span>
+          <span>Напоминание</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <span>Листай вниз</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- 2. КАЛЬКУЛЯТОР -->
+  <section class="section calculator" id="calculator">
+    <div class="container">
+      <div class="section__head">
+        <span class="eyebrow">Калькулятор</span>
+        <h2 class="section__title">Узнайте стоимость <span class="accent">за&nbsp;30 секунд</span></h2>
+        <p class="section__lead">Фиксированная абонплата — без процента с оборота. Первые 14 дней — бесплатно.</p>
+      </div>
+
+      <div class="calc">
+        <div class="calc__form">
+          <div class="field">
+            <label>Сколько у вас мастеров?</label>
+            <div class="slider-wrap">
+              <input type="range" id="mastersSlider" min="1" max="30" value="3" class="slider">
+              <div class="slider-val"><span id="mastersVal">3</span> <small>мастеров</small></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Тариф</label>
+            <div class="radio-group" id="planGroup">
+              <label class="radio">
+                <input type="radio" name="plan" value="start">
+                <span class="radio__box">
+                  <strong>Start</strong>
+                  <small>до 3 мастеров</small>
+                  <span class="radio__price">2 490 ₽</span>
+                </span>
+              </label>
+              <label class="radio">
+                <input type="radio" name="plan" value="standard" checked>
+                <span class="radio__box">
+                  <strong>Standard</strong>
+                  <small>до 10 мастеров</small>
+                  <span class="radio__price">4 990 ₽</span>
+                </span>
+              </label>
+              <label class="radio">
+                <input type="radio" name="plan" value="business">
+                <span class="radio__box">
+                  <strong>Business</strong>
+                  <small>без лимита</small>
+                  <span class="radio__price">9 990 ₽</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field field--checks">
+            <label class="checkbox">
+              <input type="checkbox" id="extraPayments" checked>
+              <span class="checkbox__text">Онлайн-оплата в боте <span class="chip">+590 ₽/мес</span></span>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="extraLoyalty">
+              <span class="checkbox__text">Программа лояльности <span class="chip">+390 ₽/мес</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="calc__result">
+          <div class="calc__result-inner">
+            <span class="calc__label">Стоимость в месяц</span>
+            <div class="calc__price">
+              <span id="priceFrom">5 580</span>
+              <span class="calc__currency"> ₽</span>
+            </div>
+            <div class="calc__breakdown">
+              <div class="row">
+                <span><span class="row__label">Тариф</span> <span class="row__plan" id="planLabel">Standard</span></span>
+                <span id="tariffPrice">4 990 ₽</span>
+              </div>
+              <div class="row">
+                <span>Онлайн-оплата</span>
+                <span id="paymentsPrice">+590 ₽</span>
+              </div>
+              <div class="row">
+                <span>Лояльность</span>
+                <span id="loyaltyPrice">0 ₽</span>
+              </div>
+              <div class="row row--total">
+                <span>Окупаемость</span>
+                <span class="accent-text">≈ 4 записи / мес</span>
+              </div>
+            </div>
+            <a href="#contact" class="btn btn--accent btn--block btn--lg">
+              <span>Подключить на 14 дней бесплатно</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <p class="calc__note">Без привязки карты. Без обязательств.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ЭТАПЫ ПОДКЛЮЧЕНИЯ -->
+  <section class="section stages" id="stages">
+    <div class="container">
+      <div class="section__head">
+        <span class="eyebrow">Подключение</span>
+        <h2 class="section__title">Запуск за <span class="accent">24 часа</span></h2>
+        <p class="section__lead">Мы всё сделаем сами — вам нужно только прислать список услуг и мастеров.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline__line"></div>
+        <div class="timeline__items">
+          <div class="timeline__item">
+            <div class="timeline__node"><span class="timeline__num">01</span></div>
+            <div class="timeline__card">
+              <div class="timeline__icon">📋</div>
+              <h3>Бриф</h3>
+              <p>Присылаете прайс, фото, график мастеров. Это 5 минут — форму дадим.</p>
+              <span class="timeline__time">⏱ 30 минут</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__node"><span class="timeline__num">02</span></div>
+            <div class="timeline__card">
+              <div class="timeline__icon">🤖</div>
+              <h3>Настройка бота</h3>
+              <p>Оформляем бота в вашем стиле: логотип, меню услуг, тексты, кнопки.</p>
+              <span class="timeline__time">⏱ 2–4 часа</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__node"><span class="timeline__num">03</span></div>
+            <div class="timeline__card">
+              <div class="timeline__icon">🔗</div>
+              <h3>Интеграции</h3>
+              <p>Подключаем YCLIENTS, Google Calendar, онлайн-кассу, CRM — без боли.</p>
+              <span class="timeline__time">⏱ 1–2 часа</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__node"><span class="timeline__num">04</span></div>
+            <div class="timeline__card">
+              <div class="timeline__icon">🚀</div>
+              <h3>Запуск</h3>
+              <p>Бот выходит в эфир. Кидаем QR-код — клеите на дверь и в Instagram.</p>
+              <span class="timeline__time">⏱ в тот же день</span>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__node"><span class="timeline__num">05</span></div>
+            <div class="timeline__card">
+              <div class="timeline__icon">💬</div>
+              <h3>Поддержка 24/7</h3>
+              <p>Любые вопросы — в чате. Обновления и доработки — бесплатно.</p>
+              <span class="timeline__time">⏱ постоянно</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ДЕМО БОТА -->
+  <section class="section demo" id="demo">
+    <div class="container">
+      <div class="section__head">
+        <span class="eyebrow">Демо бота</span>
+        <h2 class="section__title">Как выглядит <span class="accent">изнутри</span></h2>
+        <p class="section__lead">Это реальные экраны бота. Клиент записывается в 3 клика прямо в Telegram.</p>
+      </div>
+
+      <div class="demo-grid">
+        <div class="demo-card">
+          <div class="bot-mockup">
+            <div class="bm-header">
+              <div class="bm-avatar">💈</div>
+              <div class="bm-info">
+                <div class="bm-name">BarBot</div>
+                <div class="bm-status"><span class="tg-status-dot"></span>онлайн</div>
+              </div>
+            </div>
+            <div class="bm-body">
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble">👋 Привет! Я — бот записи в&nbsp;барбершоп.<br><br>Помогу выбрать услугу, мастера и&nbsp;время. Что хотите сделать?</div>
+                <div class="bm-time">14:32</div>
+              </div>
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble bm-bubble--menu">
+                  <div class="bm-btn bm-btn--accent">✂️ Записаться</div>
+                  <div class="bm-btn">📅 Мои записи</div>
+                  <div class="bm-btn">💰 Цены</div>
+                  <div class="bm-btn">📍 Адрес</div>
+                </div>
+                <div class="bm-time">14:32</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card__caption">
+            <h3>Главное меню</h3>
+            <p>Удобная навигация в стиле бренда салона</p>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="bot-mockup">
+            <div class="bm-header">
+              <div class="bm-avatar">💈</div>
+              <div class="bm-info">
+                <div class="bm-name">Выбор услуги</div>
+                <div class="bm-status">шаг 1/3</div>
+              </div>
+            </div>
+            <div class="bm-body">
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble">Какая услуга нужна?</div>
+                <div class="bm-time">14:33</div>
+              </div>
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble bm-bubble--menu">
+                  <div class="bm-btn bm-btn--accent">✂️ Стрижка · 1 500 ₽</div>
+                  <div class="bm-btn bm-btn--accent">🪒 Бритьё · 1 200 ₽</div>
+                  <div class="bm-btn bm-btn--accent">🎨 Окрашивание · 2 800 ₽</div>
+                  <div class="bm-btn">👦 Детская · 1 000 ₽</div>
+                </div>
+                <div class="bm-time">14:33</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card__caption">
+            <h3>Каталог услуг</h3>
+            <p>Цены, длительность, фото — всё видно до записи</p>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="bot-mockup">
+            <div class="bm-header">
+              <div class="bm-avatar">💈</div>
+              <div class="bm-info">
+                <div class="bm-name">Выбор времени</div>
+                <div class="bm-status">шаг 2/3</div>
+              </div>
+            </div>
+            <div class="bm-body">
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble">Алексей свободен <b>завтра</b>:</div>
+                <div class="bm-time">14:34</div>
+              </div>
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble bm-bubble--menu">
+                  <div class="bm-cal">
+                    <div class="bm-cal-day bm-cal-day--off">Пн<br>13</div>
+                    <div class="bm-cal-day bm-cal-day--off">Вт<br>14</div>
+                    <div class="bm-cal-day">Ср<br><b>15</b></div>
+                    <div class="bm-cal-day">Чт<br>16</div>
+                    <div class="bm-cal-day">Пт<br>17</div>
+                  </div>
+                  <div class="bm-btn bm-btn--accent">⏰ 10:00</div>
+                  <div class="bm-btn bm-btn--accent">⏰ 11:30</div>
+                  <div class="bm-btn">⏰ 13:00</div>
+                  <div class="bm-btn">⏰ 16:00</div>
+                </div>
+                <div class="bm-time">14:34</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card__caption">
+            <h3>Свободные слоты</h3>
+            <p>Реальное расписание из CRM — занятые помечены</p>
+          </div>
+        </div>
+
+        <div class="demo-card">
+          <div class="bot-mockup">
+            <div class="bm-header">
+              <div class="bm-avatar">💈</div>
+              <div class="bm-info">
+                <div class="bm-name">Подтверждение</div>
+                <div class="bm-status">шаг 3/3</div>
+              </div>
+            </div>
+            <div class="bm-body">
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble bm-bubble--success">
+                  ✅ <b>Запись подтверждена!</b><br><br>
+                  ✂️ Стрижка<br>
+                  👨 Алексей<br>
+                  📅 15 ноября, 11:30<br>
+                  💰 1 500 ₽
+                </div>
+                <div class="bm-time">14:35</div>
+              </div>
+              <div class="bm-msg bm-msg--in">
+                <div class="bm-bubble bm-bubble--menu">
+                  <div class="bm-btn bm-btn--accent">💳 Оплатить онлайн</div>
+                  <div class="bm-btn">📅 В календарь</div>
+                  <div class="bm-btn">🔄 Перенести</div>
+                </div>
+                <div class="bm-time">14:35</div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-card__caption">
+            <h3>Подтверждение</h3>
+            <p>Чек + оплата + перенос — в одном экране</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-cta">
+        <a href="https://t.me/barber62rznbot" target="_blank" rel="noopener" class="btn btn--accent btn--lg">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14.196.145.218.314.193.469-.025.154-.127.985-.197 1.322-.06.282-.182.487-.42.65-.16.11-.295.151-.444.151-.31 0-.514-.186-.69-.367-.213-.219-.493-.61-.81-1.014-.41-.524-.728-.72-.99-.72-.024 0-.045.003-.066.01-.155.043-.262.151-.262.286 0 .084.038.16.098.227.085.094.255.236.41.367.36.305.71.708 1.118 1.153.412.434.766.726 1.026.873.262.146.498.214.722.214.184 0 .348-.03.49-.09.43-.18.7-.583.74-1.157l.044-.396c.007-.063.011-.123.011-.18 0-.158-.014-.293-.04-.398z"/></svg>
+          <span>Попробовать бота вживую</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. ВОЗМОЖНОСТИ -->
+  <section class="section features" id="features">
+    <div class="container">
+      <div class="section__head">
+        <span class="eyebrow">Возможности</span>
+        <h2 class="section__title">Что умеет бот <span class="accent">из коробки</span></h2>
+        <p class="section__lead">Подходит для барбершопов, салонов красоты, студий маникюра, СПА, фитнес-студий и любого бизнеса на записи.</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature feature--big">
+          <div class="feature__head">
+            <div class="feature__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <h3>Онлайн-запись 24/7</h3>
+            <p>Клиент сам выбирает услугу, мастера и время в любое время суток. Вы получаете готовую запись в CRM — без участия администратора.</p>
+          </div>
+          <div class="feature__metric">
+            <span class="feature__metric-num">−40 ч</span>
+            <span class="feature__metric-label">работы админа в&nbsp;месяц</span>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Автонапоминания</h3>
+          <p>За 24 часа и за 2 часа до визита. Сокращает «no-show» на 70%.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>CRM-аналитика</h3>
+          <p>Все визиты, средний чек, любимые мастера. Бот сам напомнит пора стричься.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>Онлайн-оплата</h3>
+          <p>Оплата картой, СБП, Apple/Google Pay прямо в&nbsp;боте. Предоплата 30% сокращает отмены.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg>
+          </div>
+          <h3>Лояльность</h3>
+          <p>Каждые 5 стрижек — скидка 20%. Бонусные баллы, реферальная программа.</p>
+        </article>
+
+        <article class="feature">
+          <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3>Аналитика выручки</h3>
+          <p>Видеть загрузку мастеров, средний чек, популярные услуги в реальном времени.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CTA + FORM -->
+  <section class="cta" id="contact">
+    <div class="cta__glow cta__glow--1"></div>
+    <div class="cta__glow cta__glow--2"></div>
+    <div class="container cta__inner">
+      <div class="cta__content">
+        <span class="eyebrow eyebrow--light">Подключить бота</span>
+        <h2 class="cta__title">Запустите бота <br><span class="accent">за 24 часа</span></h2>
+        <p class="cta__lead">Оставьте заявку — свяжемся за 30 минут, дадим доступ к демо-боту и подключим тестовый период.</p>
+        <ul class="cta__list">
+          <li><span class="cta__check">✓</span> <span>Демо-бот с вашими услугами для теста</span></li>
+          <li><span class="cta__check">✓</span> <span>Бесплатная настройка под бренд салона</span></li>
+          <li><span class="cta__check">✓</span> <span>14 дней бесплатно, без привязки карты</span></li>
+          <li><span class="cta__check">✓</span> <span>Поддержка и обновления навсегда</span></li>
+        </ul>
+        <div class="cta__contacts">
+          <a href="https://t.me/Ts_Deadd" target="_blank" rel="noopener" class="cta__contact">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14.196.145.218.314.193.469-.025.154-.127.985-.197 1.322-.06.282-.182.487-.42.65-.16.11-.295.151-.444.151-.31 0-.514-.186-.69-.367-.213-.219-.493-.61-.81-1.014-.41-.524-.728-.72-.99-.72-.024 0-.045.003-.066.01-.155.043-.262.151-.262.286 0 .084.038.16.098.227.085.094.255.236.41.367.36.305.71.708 1.118 1.153.412.434.766.726 1.026.873.262.146.498.214.722.214.184 0 .348-.03.49-.09.43-.18.7-.583.74-1.157l.044-.396c.007-.063.011-.123.011-.18 0-.158-.014-.293-.04-.398z"/></svg>
+            <span>@Ts_Deadd</span>
+          </a>
+          <a href="tel:+79105650340" class="cta__contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+7-910-565-03-40</span>
+          </a>
+          <a href="https://t.me/barber62rznbot" target="_blank" rel="noopener" class="cta__contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M21.5 4.5L2.5 12.5l5.5 2 2 5.5 3.5-4 5 4 3-15z"/></svg>
+            <span>@barber62rznbot — ваш бот</span>
+          </a>
+        </div>
+      </div>
+
+      <form class="form" id="leadForm" novalidate>
+        <div class="form__head">
+          <h3>Заявка на подключение</h3>
+          <p>Ответим за 30 минут в рабочее время</p>
+        </div>
+        <div class="field">
+          <label for="name">Ваше имя</label>
+          <input type="text" id="name" required placeholder="Александр">
+        </div>
+        <div class="field">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" required placeholder="+7 (___) ___-__-__">
+        </div>
+        <div class="field">
+          <label for="telegram">Telegram (по желанию)</label>
+          <input type="text" id="telegram" placeholder="@username">
+        </div>
+        <label class="checkbox checkbox--center">
+          <input type="checkbox" id="agree" required checked>
+          <span class="checkbox__text">Согласен с обработкой персональных данных</span>
+        </label>
+        <button type="submit" class="btn btn--accent btn--block btn--lg" id="submitBtn">
+          <span class="btn__text">Получить доступ к боту</span>
+        </button>
+        <p class="form__success" id="formSuccess" hidden>✓ Спасибо! Свяжемся в течение 30 минут.</p>
+        <p class="form__error" id="formError" hidden>✗ Ошибка. Напишите нам в Telegram напрямую.</p>
+        <p class="form__note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__col">
+        <a href="#" class="logo logo--light">
+          <span class="logo__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span>
+          <span class="logo__text">Bar<span class="logo__accent">Bot</span></span>
+        </a>
+        <p class="footer__about">Telegram-бот для онлайн-записи в барбершопы, салоны красоты и студии услуг. Россия, СНГ.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Контакты</h4>
+        <a href="https://t.me/Ts_Deadd" target="_blank" rel="noopener">@Ts_Deadd</a>
+        <a href="tel:+79105650340">+7-910-565-03-40</a>
+        <a href="https://t.me/barber62rznbot" target="_blank" rel="noopener">@barber62rznbot</a>
+      </div>
+      <div class="footer__col">
+        <h4>Поддержка</h4>
+        <span>Пн–Пт: 9:00 – 22:00</span>
+        <span>Сб–Вс: 11:00 – 19:00</span>
+        <span>Чат поддержки 24/7 в боте</span>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>© 2024 BarBot. Все права защищены.</span>
+      <span>Сделано с 💈 для барбершопов</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```__
